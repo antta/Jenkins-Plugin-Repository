@@ -1,20 +1,19 @@
 package org.jenkinsci.plugins.RepositoryWrapper.PackageParameter;
 
+import hudson.Extension;
+import hudson.model.ParameterValue;
+import hudson.model.ParameterDefinition;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import hudson.Extension;
-import hudson.model.ParameterValue;
-import hudson.model.ParameterDefinition;
-import hudson.util.FormValidation;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
 public class PackageParameterDefinition extends ParameterDefinition {
@@ -115,6 +114,6 @@ public class PackageParameterDefinition extends ParameterDefinition {
 	}
 	
 	public void getString() {
-		setValue("myString, myInteger, myRienDuTout");
+		setValue("myjenkins, mysonar, mynexus");
 	}
 }

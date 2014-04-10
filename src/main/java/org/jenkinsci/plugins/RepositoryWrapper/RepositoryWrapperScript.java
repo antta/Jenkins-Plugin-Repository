@@ -1,11 +1,11 @@
 package org.jenkinsci.plugins.RepositoryWrapper;
 
+import fr.univsavoie.serveurbeta.trap.Trap;
 import hudson.Extension;
 import hudson.Launcher;
 import hudson.model.BuildListener;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
-import hudson.model.Hudson;
 import hudson.tasks.BuildWrapper;
 import hudson.tasks.BuildWrapperDescriptor;
 import hudson.util.FormValidation;
@@ -13,26 +13,17 @@ import hudson.util.FormValidation;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.List;
 
-import jenkins.model.Jenkins;
-import jenkins.model.JenkinsLocationConfiguration;
-
-import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 
 public class RepositoryWrapperScript extends BuildWrapper {
 	private final String name;
-	private final String url;
+	private String url;
 	private final String description;
+	private static String path;
 
 	@DataBoundConstructor
 	public RepositoryWrapperScript(String name, String url, String description)
@@ -41,7 +32,7 @@ public class RepositoryWrapperScript extends BuildWrapper {
 		this.url = url;
 		this.description = description;
 	}
-
+	
 	@Extension
  	public static final class DescriptorImpl extends BuildWrapperDescriptor {
 		private AbstractProject<?, ?> project;
@@ -56,6 +47,7 @@ public class RepositoryWrapperScript extends BuildWrapper {
 		}
 		
 		public FormValidation doCheckUrl(@QueryParameter String url) throws DocumentException {
+			/*
 			try {
 				URL u = new URL(url);
 			    HttpURLConnection huc = (HttpURLConnection) u.openConnection(); 
@@ -71,6 +63,20 @@ public class RepositoryWrapperScript extends BuildWrapper {
 			catch (IOException e) {
 				return FormValidation.error("Repository URL is malformed");
 			}
+			//*/
+			
+			if (!Trap.isAValidRepository(url)) {
+				return FormValidation.error("Repository URL is invalid !");
+			}
+			File folder;
+			try {
+				path = project.getRootDir().getCanonicalPath();
+				folder = new File(path);
+				folder.mkdir();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return FormValidation.ok();
 		}
 	}
 	
