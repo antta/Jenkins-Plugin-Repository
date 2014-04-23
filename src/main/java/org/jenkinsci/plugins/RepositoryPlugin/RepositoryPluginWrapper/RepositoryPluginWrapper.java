@@ -21,10 +21,9 @@ public class RepositoryPluginWrapper extends BuildWrapper {
 	private String url;
 	private int visibleItemCount;
 	private static String absolutePath;
-	
+
 	@DataBoundConstructor
-	public RepositoryPluginWrapper(String name, String description, String repoAlias,
-			String url, int visibleItemCount) {
+	public RepositoryPluginWrapper(String repoAlias, String url, int visibleItemCount) {
 		this.repoAlias = repoAlias;
 		this.url = url;
 		this.visibleItemCount = (visibleItemCount == 0 ? 5 : visibleItemCount);
@@ -36,7 +35,7 @@ public class RepositoryPluginWrapper extends BuildWrapper {
 		
 		@Override
 		public String getDisplayName() {
-			return "Add Repository URL";
+			return "Add Repository URL chaine vide";
 		}
 		
 		@Override
@@ -46,11 +45,17 @@ public class RepositoryPluginWrapper extends BuildWrapper {
 		}
 		
 		public FormValidation doCheckUrl(@QueryParameter String url) throws DocumentException, IOException {
+			//*
 			absolutePath = project.getRootDir().getCanonicalPath();
-			Trap trap = new Trap(absolutePath);
+			Trap trap = new Trap("");
+			/*
 			if (!trap.isAValidRepository(url)) {
 				return FormValidation.error("Repository URL is invalid !");
 			}
+			/*
+			File folder = new File(absolutePath + "/zypp");
+		    folder.mkdir();
+		    //*/
 			return FormValidation.ok();
 		}
 	}
@@ -98,4 +103,5 @@ public class RepositoryPluginWrapper extends BuildWrapper {
 	public static void setAbsolutePath(String absolutePath) {
 		RepositoryPluginWrapper.absolutePath = absolutePath;
 	}
+
 }

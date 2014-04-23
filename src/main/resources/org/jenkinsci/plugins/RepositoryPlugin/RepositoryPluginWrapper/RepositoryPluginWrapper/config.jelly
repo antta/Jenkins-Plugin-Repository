@@ -11,6 +11,6 @@
     </f:entry>
     
     <f:entry title="Number of visible packages" field="visibleItemCount">
-    	<f:textbox value="${visibleItemCount}"/>
+    	<f:textbox />
     </f:entry>
 </j:jelly>

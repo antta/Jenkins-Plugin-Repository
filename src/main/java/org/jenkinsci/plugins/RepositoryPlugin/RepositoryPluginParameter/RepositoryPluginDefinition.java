@@ -18,15 +18,13 @@ import org.kohsuke.stapler.StaplerRequest;
 
 public class RepositoryPluginDefinition extends ParameterDefinition {
 	private static final long serialVersionUID = 750881539978939359L;
-	private String note;
 	private String multiSelectDelimiter;
 	private String packages;
 	
 	@DataBoundConstructor
-	public RepositoryPluginDefinition(String name, String description, String note) {
+	public RepositoryPluginDefinition(String name, String description) {
 		super(name, description);
 		this.multiSelectDelimiter = ",";
-		this.note = note;
 	}
 
 	@Override
@@ -94,14 +92,6 @@ public class RepositoryPluginDefinition extends ParameterDefinition {
 
 	public void getString() {
 		setPackages("myjenkins, mysonar, mynexus");
-	}
-	
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
 	}
 
 }
