@@ -1,16 +1,5 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
 	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
 	xmlns:i="jelly:fmt" xmlns:p="/lib/hudson/project">
-	
-	<f:entry title="Repository Name" field="repoAlias">
-    	<f:textbox />
-    </f:entry>
 
-	<f:entry title="Repository URL" field="url">
-    	<f:textbox />
-    </f:entry>
-    
-    <f:entry title="Number of visible packages" field="visibleItemCount">
-    	<f:textbox value="${visibleItemCount}"/>
-    </f:entry>
 </j:jelly>
