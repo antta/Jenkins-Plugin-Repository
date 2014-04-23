@@ -30,6 +30,43 @@ public class RepositoryPluginWrapper extends BuildWrapper {
 		this.visibleItemCount = (visibleItemCount == 0 ? 5 : visibleItemCount);
 	}
 	
+	@Extension
+ 	public static final class DescriptorImpl extends BuildWrapperDescriptor {
+		private AbstractProject<?, ?> project;
+		
+		@Override
+		public String getDisplayName() {
+			return "Add Repository URL";
+		}
+		
+		@Override
+		public boolean isApplicable(AbstractProject<?, ?> project) {
+			this.project = project;
+			return true;
+		}
+		
+		public FormValidation doCheckUrl(@QueryParameter String url) throws DocumentException, IOException {
+			absolutePath = project.getRootDir().getCanonicalPath();
+			Trap trap = new Trap(absolutePath);
+			if (!trap.isAValidRepository(url)) {
+				return FormValidation.error("Repository URL is invalid !");
+			}
+			return FormValidation.ok();
+		}
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Environment setUp(AbstractBuild build, Launcher launcher, BuildListener listener)
+			throws IOException, InterruptedException {
+		return new Environment() {
+			@Override
+			public boolean tearDown(AbstractBuild build, BuildListener listener)
+					throws IOException, InterruptedException {
+				return true;
+			}
+		};
+	}
+
 	public String getRepoAlias() {
 		return repoAlias;
 	}
@@ -52,47 +89,6 @@ public class RepositoryPluginWrapper extends BuildWrapper {
 
 	public void setVisibleItemCount(int visibleItemCount) {
 		this.visibleItemCount = visibleItemCount;
-	}
-
-	@Extension
- 	public static final class DescriptorImpl extends BuildWrapperDescriptor {
-		@Override
-		public String getDisplayName() {
-			return "Get job absolute path";
-		}
-		
-		@Override
-		public boolean isApplicable(AbstractProject<?, ?> project) {
-			try {
-				setAbsolutePath(project.getRootDir().getCanonicalPath() + "/zypp");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return true;
-		}
-		
-		public FormValidation doCheckUrl(@QueryParameter String url) throws DocumentException {
-			//*
-			Trap trap = new Trap("/var/lib/jenkins/jobs/Job Creation Repository/root/");
-			if (!trap.isAValidRepository(url)) {
-				return FormValidation.error("Repository URL is invalid !");
-			}
-			//*/
-			return FormValidation.ok("Valid URL");
-		}
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public Environment setUp(AbstractBuild build, Launcher launcher, BuildListener listener)
-			throws IOException, InterruptedException {
-		return new Environment() {
-			@Override
-			public boolean tearDown(AbstractBuild build, BuildListener listener)
-					throws IOException, InterruptedException {
-				return true;
-			}
-		};
 	}
 
 	public static String getAbsolutePath() {
