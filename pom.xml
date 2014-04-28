@@ -11,9 +11,22 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>hpi</packaging>
 
+  <!-- get every artifact through repo.jenkins-ci.org, which proxies all the artifacts that we need -->
+  <repositories>
+    <repository>
+      <id>repo.jenkins-ci.org</id>
+      <url>http://repo.jenkins-ci.org/public/</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>repo.jenkins-ci.org</id>
+      <url>http://repo.jenkins-ci.org/public/</url>
+    </pluginRepository>
+  </pluginRepositories>
 <build>
-	<plugins>
-	
+	<plugins>	
 		<plugin>
 			<groupId>com.googlecode.addjars-maven-plugin</groupId>
 			<artifactId>addjars-maven-plugin</artifactId>
@@ -36,47 +49,6 @@
 				</execution>
 			</executions>
 		</plugin>
-<!-- 
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-install-plugin</artifactId>
-			<executions>
-				<execution>
-					<id>install-trap-package</id>
-					<phase>validate</phase> 
-					<goals>                      
-						<goal>install-file</goal>       
-					</goals>          
-					<configuration>   
-						<file>${project.basedir}/lib/trap-package-1.0-SNAPSHOT.jar</file>
-						<groupId>fr.univsavoie.serveurbeta.trap</groupId>
-						<artifactId>trap-package</artifactId>
-						<version>1.0-SNAPSHOT</version>
-						<packaging>jar</packaging>
-						<createChecksum>true</createChecksum>
-						<generatePom>true</generatePom>
-					</configuration>
-				</execution>
-				<execution>
-					<id>install-trap-package-source</id>
-					<phase>validate</phase>
-					<goals>
-						<goal>install-file</goal>
-					</goals>
-					<configuration>
-						<file>${project.basedir}/lib/trap-package-1.0-SNAPSHOT.jar</file>
-						<groupId>fr.univsavoie.serveurbeta.trap</groupId>
-						<artifactId>trap-package</artifactId>
-						<version>1.0-SNAPSHOT</version>
-						<packaging>jar</packaging>
-						<classifier>source</classifier>
-						<createChecksum>true</createChecksum>
-						<generatePom>true</generatePom>
-					</configuration>
-				</execution>
-			</executions>
-		</plugin>
- -->
 	</plugins>
 </build>
 </project>
