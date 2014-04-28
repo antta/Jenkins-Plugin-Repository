@@ -1,0 +1,6 @@
+<!--
+  This view is used to render the installed plugins page.
+-->
+<div>
+  Add a repository URL to list packages in Build with Parameters.
+</div>
