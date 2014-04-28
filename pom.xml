@@ -25,7 +25,7 @@
       <url>http://repo.jenkins-ci.org/public/</url>
     </pluginRepository>
   </pluginRepositories>
-  
+  <!-- 
 <build>
 	<plugins>
 		<plugin>
@@ -49,13 +49,29 @@
 		</plugin>
 	</plugins>
 </build>
-<!--  
+ -->
 <dependencies>
 	<dependency>
 		<groupId>fr.univsavoie.serveurbeta.trap</groupId>
 		<artifactId>trap-package</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.1-SNAPSHOT</version>
 	</dependency>
 </dependencies>
--->
+
+<distributionManagement>
+  <!-- Publish the versioned releases here -->
+  <repository>
+   <id>deploymentRepo</id>
+   <name>Release Repo</name>
+   <url>http://serveurbeta.univ-savoie.fr:12365/content/repositories/releases/</url>
+  </repository>
+
+  <!-- Publish the versioned releases here -->
+  <snapshotRepository>
+   <id>deploymentRepo</id>
+   <name>Snapshot Repo</name>
+   <url>http://serveurbeta.univ-savoie.fr:12365/content/repositories/snapshots/</url>
+  </snapshotRepository>
+ </distributionManagement>
+ 
 </project>
