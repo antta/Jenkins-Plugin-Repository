@@ -18,22 +18,25 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 
 public class RepositoryPluginWrapper extends BuildWrapper {
+    private static int nbInstance = 0;
 	private String repoAlias;
 	private String url;
-	public static int visibleItemCount;
-	public static String packageList;
-	private static Trap trap;
+    private int idInstance = nbInstance++;
+	public int visibleItemCount;
+	public String packageList;
+    private static Trap trap;
 
 	@DataBoundConstructor
 	public RepositoryPluginWrapper(String repoAlias, String url, int visibleItemCount) {
 		this.repoAlias = repoAlias;
 		this.url = url;
-		RepositoryPluginWrapper.visibleItemCount = (visibleItemCount == 0 ? 5 : visibleItemCount);
-		RepositoryPluginWrapper.packageList = "myjenkins, mysonar, mynexus"; 
-		/*
+		this.visibleItemCount = (visibleItemCount == 0 ? 5 : visibleItemCount);
+        SharedData.addRepoWrapper(this.idInstance, this);
+
 		trap.addRepository(repoAlias, url);
-		RepositoryPluginWrapper.packageList = trap.getPackagesIn(repoAlias);
-		//*/
+        trap.refreshRepo(repoAlias);
+		//RepositoryPluginWrapper.packageList = trap.getPackagesIn(repoAlias);
+
 	}
 	
 	@Extension
@@ -54,9 +57,8 @@ public class RepositoryPluginWrapper extends BuildWrapper {
 		public FormValidation doCheckUrl(@QueryParameter String url) throws DocumentException, IOException {
 			String absolutePath = project.getRootDir().getCanonicalPath();
 			//*
-			if (trap == null) {
-				trap = new Trap("root/", false);
-			}
+            RepositoryPluginWrapper.trap = RepositoryPluginWrapper.getTrap();
+
 			if (!trap.isAValidRepository(url)) {
 				return FormValidation.error("Repository URL is invalid !");
 			}
@@ -100,6 +102,13 @@ public class RepositoryPluginWrapper extends BuildWrapper {
 	}
 
 	public void setVisibleItemCount(int visibleItemCount) {
-		RepositoryPluginWrapper.visibleItemCount = visibleItemCount;
+		this.visibleItemCount = visibleItemCount;
 	}
+
+    public static Trap getTrap() {
+        if (trap == null) {
+            trap = new Trap("root/", false);
+        }
+        return trap;
+    }
 }

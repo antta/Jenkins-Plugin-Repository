@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.RepositoryPlugin;
 
+import fr.univsavoie.serveurbeta.trap.Trap;
 import hudson.Extension;
 import hudson.model.ParameterValue;
 import hudson.model.ParameterDefinition;
@@ -18,15 +19,18 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 
 public class RepositoryPluginDefinition extends ParameterDefinition {
+    private static int nbInstance = 0;
 	private static final long serialVersionUID = 750881539978939359L;
 	private String multiSelectDelimiter;
-	private String packages;
+    private String packages;
+    private int idInstance = nbInstance++;
 	private int visibleItemCount;
 	
 	@DataBoundConstructor
 	public RepositoryPluginDefinition(String name, String description) {
 		super(name, description);
 		this.multiSelectDelimiter = ",";
+        SharedData.addRepoDefinition(this.idInstance, this);
 	}
 
 	@Override
@@ -88,20 +92,24 @@ public class RepositoryPluginDefinition extends ParameterDefinition {
 	}
 	
 	public String getPackages() {
-		return packages;
-	}
-	
-	public void setPackages(String packages) {
-		this.packages = packages;
+        if (packages == null)
+            getPackageList();
+        return packages;
 	}
 
-	public void getPackageList() {
-		setVisibleItemCount(RepositoryPluginWrapper.visibleItemCount);
-		setPackages(RepositoryPluginWrapper.packageList);
-	}
+    public void setPackages(String packages) {
+        this.packages = packages;
+    }
+    public void getPackageList() {
+        String repo = SharedData.getRepoWrapper(this.idInstance).getRepoAlias();
+        Trap trap = RepositoryPluginWrapper.getTrap();
+        trap.refreshRepo(repo);
+        setVisibleItemCount(SharedData.getRepoDefinition(this.idInstance).visibleItemCount);
+        setPackages(trap.getPackagesIn(repo));
+    }
 
 	public int getVisibleItemCount() {
-		return visibleItemCount;
+        return visibleItemCount;
 	}
 
 	public void setVisibleItemCount(int visibleItemCount) {
