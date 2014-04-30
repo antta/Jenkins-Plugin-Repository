@@ -1,0 +1,7 @@
+#surefire
+#Tue Apr 29 17:22:23 CEST 2014
+user.dir=/home/cyril/IdeaProjects/Plugin-Repository-Jenkins
+idea.version=13.1.2
+hudson.udp=33849
+localRepository=/home/cyril/.m2/repository
+basedir=/home/cyril/IdeaProjects/Plugin-Repository-Jenkins

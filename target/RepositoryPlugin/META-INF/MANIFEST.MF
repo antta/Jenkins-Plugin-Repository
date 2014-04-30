@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Built-By: cyril
+Created-By: Apache Maven
+Build-Jdk: 1.7.0_51
+Extension-Name: RepositoryPlugin
+Implementation-Title: RepositoryPlugin
+Implementation-Version: 1.0-SNAPSHOT
+Group-Id: org.jenkins-ci.plugins
+Short-Name: RepositoryPlugin
+Long-Name: RepositoryPlugin
+Url: http://jenkins-ci.org/plugin/RepositoryPlugin/
+Plugin-Version: 1.0-SNAPSHOT (private-04/29/2014 17:53-cyril)
+Hudson-Version: 1.509.4
+Jenkins-Version: 1.509.4
+Plugin-Developers: 
+

@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Group-Id: org.jenkins-ci.plugins
+Short-Name: RepositoryPlugin
+Long-Name: RepositoryPlugin
+Url: http://jenkins-ci.org/plugin/RepositoryPlugin/
+Plugin-Version: 1.0-SNAPSHOT (private-04/29/2014 17:53-cyril)
+Hudson-Version: 1.509.4
+Jenkins-Version: 1.509.4
+Plugin-Developers: 
+Libraries: /home/cyril/IdeaProjects/Plugin-Repository-Jenkins/target/c
+ lasses,/home/cyril/.m2/repository/fr/univsavoie/serveurbeta/trap/trap
+ -package/1.1-SNAPSHOT/trap-package-1.1-SNAPSHOT.jar,/home/cyril/.m2/r
+ epository/org/jdom/jdom2/2.0.5/jdom2-2.0.5.jar,/home/cyril/.m2/reposi
+ tory/fr/univsavoie/serveurbeta/trap/trap-native/1.1-SNAPSHOT/trap-nat
+ ive-1.1-SNAPSHOT.so,/home/cyril/.m2/repository/fr/univsavoie/serveurb
+ eta/trap/trap-java/1.1-SNAPSHOT/trap-java-1.1-SNAPSHOT.jar
+Resource-Path: /home/cyril/IdeaProjects/Plugin-Repository-Jenkins/src/
+ main/webapp
+
