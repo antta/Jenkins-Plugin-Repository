@@ -2,30 +2,24 @@ package org.jenkinsci.plugins.RepositoryPlugin;
 
 import fr.univsavoie.serveurbeta.trap.Trap;
 import hudson.Extension;
-import hudson.model.ParameterValue;
 import hudson.model.ParameterDefinition;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import hudson.model.ParameterValue;
 import hudson.util.FormValidation;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.DocumentException;
-import org.jenkinsci.plugins.RepositoryPlugin.RepositoryPluginWrapper;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
-import javax.swing.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class RepositoryPluginDefinition extends ParameterDefinition {
     private static int nbInstance = 0;
@@ -48,7 +42,7 @@ public class RepositoryPluginDefinition extends ParameterDefinition {
         this.repoAlias = repoAlias;
         this.visibleItemCount = (visibleItemCount < 0 ? 5 : visibleItemCount);
         this.url = url;
-        this.path = RepositoryPluginWrapper.getLastPath() + "/zypproot";
+        this.path = "zypproot";
 
 
         File folder = new File(path);
