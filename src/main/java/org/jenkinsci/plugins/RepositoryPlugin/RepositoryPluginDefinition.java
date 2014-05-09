@@ -113,14 +113,10 @@ public class RepositoryPluginDefinition extends ParameterDefinition {
 		}
 
         public FormValidation doCheckUrl(@QueryParameter String url) throws DocumentException, IOException {
-
-            //*
             RepositoryPluginDefinition.trap = RepositoryPluginDefinition.getTrap();
-
             if (!trap.isAValidRepository(url)) {
                 return FormValidation.error("Repository URL is invalid !");
             }
-            //*/
             return FormValidation.ok();
         }
 	}

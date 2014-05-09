@@ -11,45 +11,6 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>hpi</packaging>
 
-  <!-- get every artifact through repo.jenkins-ci.org, which proxies all the artifacts that we need -->
-  <!--repositories>
-    <repository>
-      <id>repo.jenkins-ci.org</id>
-      <url>http://repo.jenkins-ci.org/public/</url>
-    </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>repo.jenkins-ci.org</id>
-      <url>http://repo.jenkins-ci.org/public/</url>
-    </pluginRepository>
-  </pluginRepositories-->
-  <!-- 
-<build>
-	<plugins>
-		<plugin>
-		    <groupId>com.googlecode.addjars-maven-plugin</groupId>
-		    <artifactId>addjars-maven-plugin</artifactId>
-		    <version>1.0.5</version>
-		    <executions>
-		        <execution>
-		            <goals>
-		                <goal>add-jars</goal>
-		            </goals>
-		            <configuration>
-		                <resources>
-		                    <resource>
-		                        <directory>${project.basedir}/lib/</directory>
-		                    </resource>
-		                </resources>
-		            </configuration>
-		        </execution>
-		    </executions>
-		</plugin>
-	</plugins>
-</build>
- -->
 <dependencies>
 	<dependency>
 		<groupId>fr.univsavoie.serveurbeta.trap</groupId>
