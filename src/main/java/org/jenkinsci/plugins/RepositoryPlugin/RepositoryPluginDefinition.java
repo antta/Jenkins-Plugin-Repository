@@ -9,6 +9,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.DocumentException;
+import org.jdom2.JDOMException;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
@@ -50,8 +51,14 @@ public class RepositoryPluginDefinition extends ParameterDefinition {
         folder.mkdir();
 
         trap.addRepository(repoAlias, url);
-        trap.refreshRepo(repoAlias);
-	}
+        try {
+            trap.refreshRepo(repoAlias);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JDOMException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 	@Override
@@ -133,7 +140,13 @@ public class RepositoryPluginDefinition extends ParameterDefinition {
 
     public void getPackageList() {
         Trap trap = new Trap(path,false);
-        trap.refreshRepo(repoAlias);
+        try {
+            trap.refreshRepo(repoAlias);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JDOMException e) {
+            e.printStackTrace();
+        }
         File file = new File(path+"log.txt");
         try {
             FileWriter writer = new FileWriter(file);
