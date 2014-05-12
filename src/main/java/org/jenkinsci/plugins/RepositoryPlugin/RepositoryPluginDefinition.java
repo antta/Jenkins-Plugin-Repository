@@ -43,7 +43,7 @@ public class RepositoryPluginDefinition extends ParameterDefinition {
         this.repoAlias = repoAlias;
         this.visibleItemCount = (visibleItemCount < 0 ? 5 : visibleItemCount);
         this.url = url;
-        this.path = "zypproot";
+        this.path = System.getProperty("user.home")+"/zypproot";
 
 
         File folder = new File(path);
@@ -51,13 +51,18 @@ public class RepositoryPluginDefinition extends ParameterDefinition {
         folder.mkdir();
 
         trap.addRepository(repoAlias, url);
+
+        trap.refreshRepo(repoAlias);
+
+        File file = new File("monlog.txt");
         try {
-            trap.refreshRepo(repoAlias);
+            FileWriter writer = new FileWriter(file);
+            writer.write(System.currentTimeMillis() + " getPackages list ! repoAlias : " + this.repoAlias + " url : " + this.url + " path : " + path + " packages : " + packages);
+            //writer.write(""+new File("/cache/").exists());
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (JDOMException e) {
-            e.printStackTrace();
         }
+
     }
 
 
@@ -140,17 +145,15 @@ public class RepositoryPluginDefinition extends ParameterDefinition {
 
     public void getPackageList() {
         Trap trap = new Trap(path,false);
-        try {
-            trap.refreshRepo(repoAlias);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JDOMException e) {
-            e.printStackTrace();
-        }
-        File file = new File(path+"log.txt");
+
+
+        trap.refreshRepo(repoAlias);
+
+        File file = new File("log.txt");
         try {
             FileWriter writer = new FileWriter(file);
             writer.write(System.currentTimeMillis() + " getPackages list ! repoAlias : " + repoAlias + " url : " + url + " path : " + path + " packages : " + packages);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
