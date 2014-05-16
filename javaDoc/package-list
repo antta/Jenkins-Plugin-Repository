@@ -1,0 +1,4 @@
+hudson.cli
+hudson.model
+hudson.tasks
+org.jenkinsci.plugins.RepositoryPlugin
